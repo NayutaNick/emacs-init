@@ -4,6 +4,15 @@
 ;; ---------------------------
 ;; 基础配置
 ;; ---------------------------
+;; 重载init.el
+(defun reload-init-file ()
+  "Reload Emacs configuration file."
+  (interactive)
+  (load-file user-init-file))
+
+(global-set-key (kbd "C-c r") 'reload-init-file)
+
+
 ;; 禁用欢迎页面，显示 *scratch* 缓冲区
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message nil)
@@ -106,8 +115,9 @@ disable otherwise."
 (global-set-key (kbd "<f10>") 'toggle-centered-window)
 
 ;; Enable the mode by default if there is no horizontal split
-(centered-window-mode-enable)
-(setq centered-window-mode t)
+(when (display-graphic-p)
+  (centered-window-mode-enable)
+  (setq centered-window-mode t))
 
 ;; ---------------------------
 ;; 编辑体验优化
@@ -191,7 +201,7 @@ disable otherwise."
  '(custom-safe-themes
    '("8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098" default))
  '(package-selected-packages
-   '(gnu-elpa-keyring-update dracula-theme flycheck-rust rust-mode racer markdown-mode doom-themes smartparens treemacs-projectile projectile treemacs flycheck company)))
+   '(lua-mode gnu-elpa-keyring-update dracula-theme flycheck-rust rust-mode racer markdown-mode doom-themes smartparens treemacs-projectile projectile treemacs flycheck company)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
